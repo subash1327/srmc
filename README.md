@@ -1,5 +1,5 @@
 <!--BEGIN_BANNER_IMAGE-->
-pm2 start npm --name examples-demo -- run examples:demo
+pm2 start npm --name srmc -- run examples:demo
 
 
 <picture>

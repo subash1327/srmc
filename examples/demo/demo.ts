@@ -141,7 +141,7 @@ const appActions = {
         scalabilityMode: 'L3T3_KEY',
       },
       videoCaptureDefaults: {
-        resolution: VideoPresets.h720.resolution,
+        resolution: VideoPresets.h1080.resolution,
       },
       e2ee: e2eeEnabled
         ? { keyProvider: state.e2eeKeyProvider, worker: new E2EEWorker() }
