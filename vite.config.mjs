@@ -8,7 +8,7 @@ dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
   server: {
-    port: 8081,
+    port: 8080,
     open: true,
     allowedHosts: [
       'srm.focus.ind.in',
