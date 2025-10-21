@@ -1018,7 +1018,7 @@ function renderBitrate() {
       if (t.source === Track.Source.Camera) {
         if (isRemoteTrack(t.videoTrack)) {
           const codecElm = container.querySelector(`#codec-${p.identity}`)!;
-          codecElm.innerHTML = t.videoTrack.getDecoderImplementation() ?? '';
+          // codecElm.innerHTML = t.videoTrack.getDecoderImplementation() ?? '';
         }
       }
     }
@@ -1040,7 +1040,7 @@ function getParticipantsAreaElement(): HTMLElement {
 }
 
 function updateVideoSize(element: HTMLVideoElement, target: Element) {
-  target.innerHTML = `(${element.videoWidth}x${element.videoHeight})`;
+  // target.innerHTML = `(${element.videoWidth}x${element.videoHeight})`;
 }
 
 function setButtonState(
