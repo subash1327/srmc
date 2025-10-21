@@ -2,9 +2,9 @@
 import E2EEWorker from '../../src/e2ee/worker/e2ee.worker?worker';
 import { AccessToken } from 'livekit-server-sdk';
 
-const LIVEKIT_API_KEY = 'APIo9Aw99v4QVna';
-const LIVEKIT_API_SECRET = 'abMMSeUuou1hDZHlYNFxkRPrK7Ikk9yeO0dY0WbDIxI';
-const LIVEKIT_URL = 'wss://howdy-agew68tz.livekit.cloud';
+const LIVEKIT_API_KEY = 'APIWGjbsqnHQQeT';
+const LIVEKIT_API_SECRET = '1h8YLAP4VbaIaZhPHaeymTLIUvuX9Zyuim85pDT666K';
+const LIVEKIT_URL = 'wss://stream.fanly.social';
 
 import type {
   ChatMessage,
@@ -63,7 +63,7 @@ let currentRoom: Room | undefined;
 let startTime: number;
 
 const searchParams = new URLSearchParams(window.location.search);
-const storedUrl = 'wss://howdy-agew68tz.livekit.cloud';
+const storedUrl = 'wss://stream.fanly.social';
 // const storedToken = searchParams.get('token') ?? '';
 // (<HTMLInputElement>$('url')).value = storedUrl;
 // (<HTMLInputElement>$('token')).value = storedToken;
