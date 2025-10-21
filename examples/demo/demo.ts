@@ -63,7 +63,7 @@ let currentRoom: Room | undefined;
 let startTime: number;
 
 const searchParams = new URLSearchParams(window.location.search);
-const storedUrl = 'wss://stream.fanly.social';
+// const storedUrl = 'wss://stream.fanly.social';
 // const storedToken = searchParams.get('token') ?? '';
 // (<HTMLInputElement>$('url')).value = storedUrl;
 // (<HTMLInputElement>$('token')).value = storedToken;
@@ -91,7 +91,7 @@ const appActions = {
     });
   },
   connectUser: async () => {
-    const url = storedUrl;
+    const url = LIVEKIT_URL;
     // get id from query
     
     let identity =  searchParams.get('id') || 'user';
@@ -523,36 +523,61 @@ const appActions = {
     await state.e2eeKeyProvider.ratchetKey();
   },
 
-  toggleAudio: async () => {
-    if (!currentRoom) return;
-    const enabled = currentRoom.localParticipant.isMicrophoneEnabled;
-    setButtonDisabled('toggle-audio-button', true);
-    if (enabled) {
-      appendLog('disabling audio');
-    } else {
-      appendLog('enabling audio');
-    }
-    await currentRoom.localParticipant.setMicrophoneEnabled(!enabled);
-    setButtonDisabled('toggle-audio-button', false);
-    updateButtonsForPublishState();
-  },
+ toggleAudio: async () => {
+  if (!currentRoom) return;
 
-  toggleVideo: async () => {
-    if (!currentRoom) return;
-    setButtonDisabled('toggle-video-button', true);
-    const enabled = currentRoom.localParticipant.isCameraEnabled;
-    if (enabled) {
-      appendLog('disabling video');
-    } else {
-      appendLog('enabling video');
-    }
-    await currentRoom.localParticipant.setCameraEnabled(!enabled);
-    setButtonDisabled('toggle-video-button', false);
-    renderParticipant(currentRoom.localParticipant);
+  const enabled = currentRoom.localParticipant.isMicrophoneEnabled;
+  const micIcon = document.getElementById("micIcon");
 
-    // update display
-    updateButtonsForPublishState();
-  },
+  setButtonDisabled("toggle-audio-button", true);
+
+  if (enabled) {
+    appendLog("disabling audio");
+    micIcon.classList.remove("fa-microphone");
+    micIcon.classList.add("fa-microphone-slash");
+    micIcon.style.color = "#ff4d4d"; // optional red for muted
+  } else {
+    appendLog("enabling audio");
+    micIcon.classList.remove("fa-microphone-slash");
+    micIcon.classList.add("fa-microphone");
+    micIcon.style.color = ""; // reset to default
+  }
+
+  await currentRoom.localParticipant.setMicrophoneEnabled(!enabled);
+
+  setButtonDisabled("toggle-audio-button", false);
+  updateButtonsForPublishState();
+},
+
+toggleVideo: async () => {
+  if (!currentRoom) return;
+
+  setButtonDisabled("toggle-video-button", true);
+
+  const enabled = currentRoom.localParticipant.isCameraEnabled;
+  const cameraIcon = document.getElementById("cameraIcon");
+
+  if (enabled) {
+    appendLog("disabling video");
+    cameraIcon.classList.remove("fa-video");
+    cameraIcon.classList.add("fa-video-slash");
+    cameraIcon.style.color = "#ff4d4d"; // optional red for disabled
+  } else {
+    appendLog("enabling video");
+    cameraIcon.classList.remove("fa-video-slash");
+    cameraIcon.classList.add("fa-video");
+    cameraIcon.style.color = "";
+  }
+
+  await currentRoom.localParticipant.setCameraEnabled(!enabled);
+
+  setButtonDisabled("toggle-video-button", false);
+  renderParticipant(currentRoom.localParticipant);
+
+  // update display
+  updateButtonsForPublishState();
+},
+
 
   flipVideo: () => {
     const videoPub = currentRoom?.localParticipant.getTrackPublication(Track.Source.Camera);
@@ -803,11 +828,7 @@ function renderParticipant(participant: Participant, remove: boolean = false) {
         </div>
       </div>
       ${
-        !isLocalParticipant(participant)
-          ? `<div class="volume-control">
-        <input id="volume-${identity}" type="range" min="0" max="1" step="0.1" value="1" orient="vertical" />
-      </div>`
-          : `<progress id="local-volume" max="1" value="0" />`
+        `<progress id="local-volume" max="1" value="0" />`
       }
     `;
     //
@@ -851,10 +872,10 @@ function renderParticipant(participant: Participant, remove: boolean = false) {
   }
 
   if (isRemoteParticipant(participant)) {
-    const volumeSlider = <HTMLInputElement>container.querySelector(`#volume-${identity}`);
-    volumeSlider.addEventListener('input', (ev) => {
-      participant.setVolume(Number.parseFloat((ev.target as HTMLInputElement).value));
-    });
+    // const volumeSlider = <HTMLInputElement>container.querySelector(`#volume-${identity}`);
+    // volumeSlider.addEventListener('input', (ev) => {
+    //   participant.setVolume(Number.parseFloat((ev.target as HTMLInputElement).value));
+    // });
   }
 
   const cameraEnabled = cameraPub && cameraPub.isSubscribed && !cameraPub.isMuted;
@@ -909,14 +930,14 @@ function renderParticipant(participant: Participant, remove: boolean = false) {
     micElm.innerHTML = '<i class="fas fa-microphone-slash"></i>';
   }
 
-  const e2eeElm = container.querySelector(`#e2ee-${identity}`)!;
-  if (participant.isEncrypted) {
-    e2eeElm.className = 'e2ee-on';
-    e2eeElm.innerHTML = '<i class="fas fa-lock"></i>';
-  } else {
-    e2eeElm.className = 'e2ee-off';
-    e2eeElm.innerHTML = '<i class="fas fa-unlock"></i>';
-  }
+  // const e2eeElm = container.querySelector(`#e2ee-${identity}`)!;
+  // if (participant.isEncrypted) {
+  //   e2eeElm.className = 'e2ee-on';
+  //   e2eeElm.innerHTML = '<i class="fas fa-lock"></i>';
+  // } else {
+  //   e2eeElm.className = 'e2ee-off';
+  //   e2eeElm.innerHTML = '<i class="fas fa-unlock"></i>';
+  // }
 
   switch (participant.connectionQuality) {
     case ConnectionQuality.Excellent:
