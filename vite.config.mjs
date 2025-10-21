@@ -18,11 +18,6 @@ export default defineConfig({
       'localhost:8081',
       'srmccms.timesmed.com'
     ],
-    hmr: {
-      protocol: 'ws',
-      host: 'localhost', // Or your local IP if testing from another device
-      port: 5173,       // Default Vite port
-    }
   },
   build: {
     minify: 'esbuild',
