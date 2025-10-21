@@ -1,4 +1,6 @@
 <!--BEGIN_BANNER_IMAGE-->
+pm2 start npm --name examples-demo -- run examples:demo
+
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/.github/banner_dark.png">
