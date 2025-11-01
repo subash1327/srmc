@@ -1,0 +1,15 @@
+/* Basic styles ported from the original demo with simplifications */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+.app-container { display:flex; height:100%; }
+.app-main { flex: 1; display:flex; flex-direction:column; align-items:center; padding:10px; }
+#participants-area { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; width: 100%; }
+.participant { position: relative; border-radius: 5px; overflow: hidden; background: #000; }
+.participant video { width:100%; height:100%; object-fit:cover; display:block; }
+.info-bar { position:absolute; bottom:0; left:0; right:0; padding:6px; color:#fff; background: rgba(0,0,0,0.4); display:flex; justify-content:space-between; align-items:center; }
+.video-call-actions { display:flex; gap:8px; padding-top:12px; }
+.video-action-button { border:none; width:48px; height:48px; border-radius:8px; background:#fff; display:flex; align-items:center; justify-content:center; }
+.right-side { width:320px; padding:12px; background:#fff; }
+.chat-container { display:flex; flex-direction:column; height:100%; }
+.chat-area textarea { width:100%; height:220px; resize:none; }
+#chat-input-area { display:flex; gap:8px; margin-top:8px; }
