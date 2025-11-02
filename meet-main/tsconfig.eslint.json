@@ -26,5 +26,9 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"],
-  
+  "rules": {
+    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  }
 }

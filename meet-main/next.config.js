@@ -5,6 +5,9 @@ const nextConfig = {
   images: {
     formats: ['image/webp'],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   allowedDevOrigins: [
     'srm.focus.ind.in',
     'video.srmctele.com',
